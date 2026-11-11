@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PlantCare - Smart Garden Plant Tracker & AI Botanist</title>
+  <meta name="description" content="Free plant tracking website with real-time photo diagnosis, name search, and in-built Qwen AI botanist. Beautiful glassmorphic design.">
+
+  <!-- Google Fonts: Outfit & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome 6 (Free CDN) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Colorful Ambient Animated Background Blobs -->
+  <div class="ambient-background">
+    <div class="ambient-blob blob-1"></div>
+    <div class="ambient-blob blob-2"></div>
+    <div class="ambient-blob blob-3"></div>
+  </div>
+
+  <!-- Glassmorphic Header Navigation -->
+  <header class="navbar-wrapper">
+    <nav class="navbar">
+      <a href="#hero" class="brand-logo">
+        <div class="logo-icon">
+          <i class="fa-solid fa-leaf"></i>
+        </div>
+        <span>PlantCare</span>
+        <span class="brand-badge">FREE & AI POWERED</span>
+      </a>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#explorerSection" class="nav-link active"><i class="fa-solid fa-magnifying-glass"></i> Explore Plants</a></li>
+        <li><a href="#scannerSection" class="nav-link"><i class="fa-solid fa-camera-retro"></i> AI Snap & ID</a></li>
+        <li><a href="#gardenSection" class="nav-link"><i class="fa-solid fa-seedling"></i> My Garden</a></li>
+        <li><a href="#aiAssistantSection" class="nav-link"><i class="fa-solid fa-robot"></i> Qwen AI Botanist</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="#scannerSection" class="btn-leaf btn-leaf-sm">
+          <i class="fa-solid fa-camera"></i> Snap Plant
+        </a>
+        <button class="mobile-toggle" id="mobileMenuToggle" aria-label="Toggle Navigation">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero-section" id="hero">
+      <div class="container">
+        <div class="hero-grid">
+          
+          <!-- Hero Text & Search -->
+          <div class="hero-content">
+            <div class="section-tag">
+              <i class="fa-solid fa-sparkles"></i> Inbuilt Qwen AI Plant Intelligence
+            </div>
+            <h1>
+              Nurture Every Leaf, <br>
+              <span class="gradient-text">Bloom Every Petal.</span>
+            </h1>
+            <p class="hero-subtitle">
+              Your free, all-in-one companion for small garden plants. Search species, snap live photos for instant health diagnosis, and chat with our free Qwen-powered AI Botanist.
+            </p>
+
+            <!-- Live Search Bar -->
+            <div class="hero-search-box">
+              <i class="fa-solid fa-magnifying-glass search-icon"></i>
+              <input type="text" id="heroSearchInput" placeholder="Search by name: e.g. Monstera, Basil, Snake Plant...">
+              <button class="btn-leaf" onclick="document.getElementById('explorerSection').scrollIntoView({behavior:'smooth'})">
+                Search
+              </button>
+            </div>
+
+            <!-- Quick Filter Chips -->
+            <div class="hero-quick-chips">
+              <span class="chip-label">Quick filter:</span>
+              <button class="filter-chip" data-filter="Indoor">🌿 Indoor</button>
+              <button class="filter-chip" data-filter="Low Maintenance">🛡️ Low Maintenance</button>
+              <button class="filter-chip" data-filter="Herbs">🌱 Fresh Herbs</button>
+              <button class="filter-chip" data-filter="Succulent">☀️ Succulents</button>
+              <button class="filter-chip" data-filter="Pet Friendly">🐾 Pet Safe</button>
+            </div>
+
+            <!-- Stats Bar -->
+            <div class="hero-stats-row">
+              <div class="stat-item">
+                <h4>100%</h4>
+                <p>Free Forever</p>
+              </div>
+              <div class="stat-item">
+                <h4>Qwen 2.5</h4>
+                <p>Plant Vision LLM</p>
+              </div>
+              <div class="stat-item">
+                <h4>99.2%</h4>
+                <p>Diagnosis Precision</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hero Visual Showcase (Glass Card with Real Plant) -->
+          <div class="hero-visual-card glass-card">
+            <div class="hero-plant-img-wrapper">
+              <img src="https://images.unsplash.com/photo-1614594975525-e45190c55d0b?auto=format&fit=crop&w=1000&q=80" alt="Monstera Deliciosa Living Plant" id="heroFeaturedPlant">
+              
+              <!-- Floating Glass Pills -->
+              <div class="glass-floating-pill pill-ai-badge">
+                <i class="fa-solid fa-brain"></i>
+                <span>Qwen AI Diagnosed</span>
+              </div>
+
+              <div class="glass-floating-pill pill-health">
+                <div class="health-dot"></div>
+                <span>Health: 98% Optimal</span>
+              </div>
+            </div>
+
+            <div class="hero-plant-meta">
+              <div class="hero-plant-info">
+                <h3>Monstera Deliciosa</h3>
+                <span>Tropical Rainforest Perennial</span>
+              </div>
+              <button class="btn-leaf btn-leaf-sm" onclick="document.getElementById('scannerSection').scrollIntoView({behavior:'smooth'})">
+                <i class="fa-solid fa-camera"></i> Test Scan
+              </button>
+            </div>
+
+            <!-- Floating Next Care Indicator -->
+            <div class="floating-care-bubble">
+              <div class="bubble-icon">
+                <i class="fa-solid fa-droplet"></i>
+              </div>
+              <div class="bubble-text">
+                <h5>Water in 2 Days</h5>
+                <p>Top 2" soil drying nicely</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Photo Snap & AI Diagnosis Section -->
+    <section class="scanner-section" id="scannerSection">
+      <div class="container">
+        
+        <div class="section-header">
+          <div class="section-tag">
+            <i class="fa-solid fa-camera-viewfinder"></i> Live Plant Scanner
+          </div>
+          <h2>Snap a Photo, Instant AI Diagnosis</h2>
+          <p>
+            Take or upload a leaf photo to diagnose disease, pests, and hydration needs in seconds using the inbuilt Qwen model.
+          </p>
+        </div>
+
+        <div class="scanner-glass-box">
+          <div class="scanner-grid">
+            
+            <!-- Left: Camera / Viewport with Laser Animation -->
+            <div class="scanner-viewport-wrapper">
+              <div class="scanner-viewport">
+                <img id="scanViewportImg" src="https://images.unsplash.com/photo-1614594975525-e45190c55d0b?auto=format&fit=crop&w=800&q=80" alt="Plant under scan">
+                <div class="scanner-laser" id="scanLaser"></div>
+                <div class="scanner-corners">
+                  <div class="corner corner-tl"></div>
+                  <div class="corner corner-tr"></div>
+                  <div class="corner corner-bl"></div>
+                  <div class="corner corner-br"></div>
+                </div>
+              </div>
+
+              <!-- Preset Sample Selector -->
+              <div class="scanner-sample-selector">
+                <p><i class="fa-solid fa-images"></i> Or try these sample diagnosis scenarios:</p>
+                <div class="sample-thumbs-row" id="sampleThumbsContainer">
+                  <!-- Injected via JS -->
+                </div>
+              </div>
+
+              <!-- Upload & Trigger Actions -->
+              <div class="scanner-upload-actions">
+                <label for="plantPhotoUpload" class="btn-leaf-outline" style="flex:1; cursor:pointer; text-align:center; justify-content:center;">
+                  <i class="fa-solid fa-cloud-arrow-up"></i> Upload Plant Photo
+                </label>
+                <input type="file" id="plantPhotoUpload" accept="image/*" style="display:none;">
+
+                <button class="btn-leaf" id="triggerScanBtn" style="flex:1;">
+                  <i class="fa-solid fa-camera"></i> Scan & Diagnose
+                </button>
+              </div>
+            </div>
+
+            <!-- Right: Real-Time Qwen AI Diagnosis Results -->
+            <div class="scan-result-card glass-card">
+              <div class="result-header">
+                <span class="result-badge-qwen">
+                  <i class="fa-solid fa-sparkles"></i> Qwen Vision Botanical Engine
+                </span>
+                <span class="result-confidence" id="scanConfidence">99.4% Match</span>
+              </div>
+
+              <h3 class="result-plant-name" id="scanPlantName">Monstera Deliciosa (Swiss Cheese Plant)</h3>
+              <div class="result-health-status" id="scanHealthStatus">Optimal & Thriving 🌿</div>
+
+              <div class="result-analysis-box">
+                <h5>Diagnostic Assessment</h5>
+                <p id="scanDiagnosis">No active fungal, parasitic or nutritional diseases detected. Fenestrations indicate mature, healthy chlorophyll generation.</p>
+              </div>
+
+              <div class="result-qwen-advice">
+                <h5><i class="fa-solid fa-list-check"></i> Qwen Prescribed Care Routine:</h5>
+                <ul id="scanAdviceList">
+                  <!-- Populated by JS -->
+                </ul>
+              </div>
+
+              <div class="result-actions">
+                <button class="btn-leaf" id="addScannedToGardenBtn">
+                  <i class="fa-solid fa-plus"></i> Track in My Garden
+                </button>
+                <button class="btn-glass" onclick="document.getElementById('aiAssistantSection').scrollIntoView({behavior:'smooth'})">
+                  <i class="fa-solid fa-comments"></i> Ask Qwen More
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Plant Search & Explorer Gallery -->
+    <section class="explorer-section" id="explorerSection">
+      <div class="container">
+        
+        <div class="section-header">
+          <div class="section-tag">
+            <i class="fa-solid fa-seedling"></i> Plant Encyclopedia
+          </div>
+          <h2>Search & Discover Garden Plants</h2>
+          <p>
+            Browse real photos of popular small garden and indoor plants with exact water schedules, sunlight needs, and botanical care guides.
+          </p>
+        </div>
+
+        <!-- Controls: Category Filters & Search -->
+        <div class="explorer-controls">
+          <div class="category-tabs" id="categoryTabs">
+            <button class="tab-btn active" data-category="All">All Plants</button>
+            <button class="tab-btn" data-category="Indoor">Indoor Foliage</button>
+            <button class="tab-btn" data-category="Low Maintenance">Low Maintenance</button>
+            <button class="tab-btn" data-category="Flowering">Flowering</button>
+            <button class="tab-btn" data-category="Herbs">Kitchen Herbs</button>
+            <button class="tab-btn" data-category="Succulent">Succulents</button>
+            <button class="tab-btn" data-category="Pet Friendly">Pet Friendly</button>
+          </div>
+
+          <div class="gallery-search-input-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="gallerySearchInput" placeholder="Filter plants...">
+          </div>
+        </div>
+
+        <!-- Dynamic Glassmorphic Plant Cards Grid -->
+        <div class="plant-grid" id="plantGrid">
+          <!-- Injected dynamically via JS -->
+        </div>
+
+      </div>
+    </section>
+
+    <!-- My Mini Garden Live Dashboard Preview -->
+    <section class="garden-dashboard-section" id="gardenSection">
+      <div class="container">
+        
+        <!-- Garden Stats Banner -->
+        <div class="garden-banner">
+          <div class="garden-banner-info">
+            <div style="display:flex; align-items:center; gap:10px; margin-bottom:6px;">
+              <h3>My Garden Tracker</h3>
+              <span class="brand-badge" id="gardenCountBadge" style="background:#55efc4; color:#092e21;">3 Plants</span>
+            </div>
+            <p>Track hydration cycles, growth notes, and log daily care to keep your plant companions flourishing.</p>
+          </div>
+
+          <div class="garden-streak-badge">
+            <div class="streak-flame">🔥</div>
+            <div class="streak-numbers">
+              <h4 id="currentStreakCount">14-Day Streak</h4>
+              <span>Green Thumb Master</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Garden Cards Grid -->
+        <div class="garden-grid" id="gardenGrid">
+          <!-- Populated by JS -->
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Ask Qwen AI Botanist Interactive Assistant -->
+    <section class="ai-assistant-section" id="aiAssistantSection">
+      <div class="container">
+        
+        <div class="section-header">
+          <div class="section-tag">
+            <i class="fa-solid fa-robot"></i> 24/7 Botanical AI
+          </div>
+          <h2>Ask PlantCare AI (Powered by Qwen)</h2>
+          <p>
+            Have a question about brown leaf tips, repotting soil mixes, or propagation? Our integrated Qwen LLM is ready to assist in real time.
+          </p>
+        </div>
+
+        <div class="ai-card-shell glass-card">
+          <div class="ai-card-top">
+            <div class="ai-badge-group">
+              <div class="ai-avatar">
+                <i class="fa-solid fa-leaf"></i>
+              </div>
+              <div class="ai-title">
+                <h3>PlantCare Botanist AI</h3>
+                <p><i class="fa-solid fa-circle" style="color:#55efc4; font-size:0.6rem;"></i> Inbuilt Qwen LLM • Always Free & Ready</p>
+              </div>
+            </div>
+            <span class="result-badge-qwen">
+              <i class="fa-solid fa-microchip"></i> Qwen 2.5
+            </span>
+          </div>
+
+          <!-- Chat History -->
+          <div class="chat-history" id="chatHistory">
+            <div class="chat-bubble chat-bubble-bot">
+              👋 Hello green thumb! I am your <strong>PlantCare AI Botanist</strong> powered by the Qwen LLM. Ask me anything about plant care, pest troubles, fertilizer ratios, or select one of the suggested prompts below!
+            </div>
+          </div>
+
+          <!-- Pre-canned Prompt Suggestion Chips -->
+          <div class="chat-prompt-suggestions">
+            <button class="prompt-chip" data-prompt="Why are my plant leaves turning yellow?">🍂 Why are leaves yellowing?</button>
+            <button class="prompt-chip" data-prompt="How often should I water my indoor plants?">💧 How often should I water?</button>
+            <button class="prompt-chip" data-prompt="How do I propagate a Pothos vine in water?">✂️ Propagate pothos in water</button>
+            <button class="prompt-chip" data-prompt="How to get rid of fungus gnats organically?">🪲 Treat pests organically</button>
+            <button class="prompt-chip" data-prompt="When and how should I fertilize my garden plants?">🍃 Plant fertilizer guide</button>
+          </div>
+
+          <!-- Input Bar -->
+          <div class="chat-input-bar">
+            <input type="text" id="chatInput" placeholder="Ask Qwen anything (e.g. 'Why is my snake plant drooping?')...">
+            <button class="btn-leaf" id="sendChatBtn">
+              <i class="fa-solid fa-paper-plane"></i> Ask AI
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Why PlantCare / Features Highlights (Colorful Glass Cards) -->
+    <section style="padding: 70px 0;">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag"><i class="fa-solid fa-gem"></i> Built For Gardeners</div>
+          <h2>Why Small Garden Lovers Choose PlantCare</h2>
+          <p>Carefully crafted with modern web standards, lightweight performance, and zero subscription paywalls.</p>
+        </div>
+
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px;">
+          
+          <div class="glass-card" style="padding: 28px;">
+            <div style="width: 50px; height: 50px; background: rgba(112, 193, 96, 0.2); color: var(--leaf-green-600); border-radius: 16px; display:flex; align-items:center; justify-content:center; font-size: 1.5rem; margin-bottom: 18px;">
+              <i class="fa-solid fa-magnifying-glass-location"></i>
+            </div>
+            <h3 style="font-size: 1.25rem; margin-bottom: 8px;">Instant Name & Species Search</h3>
+            <p style="color: var(--text-secondary); font-size: 0.92rem;">Filter by light requirements, pet toxicity, and watering frequency in a few clicks.</p>
+          </div>
+
+          <div class="glass-card" style="padding: 28px;">
+            <div style="width: 50px; height: 50px; background: rgba(255, 190, 59, 0.2); color: #d68910; border-radius: 16px; display:flex; align-items:center; justify-content:center; font-size: 1.5rem; margin-bottom: 18px;">
+              <i class="fa-solid fa-brain"></i>
+            </div>
+            <h3 style="font-size: 1.25rem; margin-bottom: 8px;">Inbuilt Qwen AI Diagnostics</h3>
+            <p style="color: var(--text-secondary); font-size: 0.92rem;">High accuracy leaf health checks powered by cutting-edge free open weights vision models.</p>
+          </div>
+
+          <div class="glass-card" style="padding: 28px;">
+            <div style="width: 50px; height: 50px; background: rgba(72, 219, 251, 0.2); color: #0abde3; border-radius: 16px; display:flex; align-items:center; justify-content:center; font-size: 1.5rem; margin-bottom: 18px;">
+              <i class="fa-solid fa-cloud-sun"></i>
+            </div>
+            <h3 style="font-size: 1.25rem; margin-bottom: 8px;">Care Streaks & Hydration Alerts</h3>
+            <p style="color: var(--text-secondary); font-size: 0.92rem;">Keep track of when you last watered, fertilised, or rotated each plant in your garden.</p>
+          </div>
+
+          <div class="glass-card" style="padding: 28px;">
+            <div style="width: 50px; height: 50px; background: rgba(162, 155, 254, 0.2); color: #6c5ce7; border-radius: 16px; display:flex; align-items:center; justify-content:center; font-size: 1.5rem; margin-bottom: 18px;">
+              <i class="fa-solid fa-gift"></i>
+            </div>
+            <h3 style="font-size: 1.25rem; margin-bottom: 8px;">100% Free & Open To Build</h3>
+            <p style="color: var(--text-secondary); font-size: 0.92rem;">No hidden subscriptions or paywalls. Perfect for our 3-member team collaborative build.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Plant Detail Glass Modal -->
+  <div class="modal-overlay" id="plantDetailModal">
+    <div class="modal-content-glass">
+      <button class="modal-close-btn" id="modalCloseBtn" aria-label="Close modal">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="modal-grid">
+        <div>
+          <img id="modalImg" class="modal-plant-img" src="" alt="Plant details">
+        </div>
+        
+        <div>
+          <span class="plant-badge-top" id="modalBadge" style="position:static; display:inline-block; margin-bottom:10px;">Popular</span>
+          <h2 id="modalName" style="font-size: 2rem; margin-bottom: 2px;">Plant Name</h2>
+          <p id="modalScientific" style="font-style:italic; color:var(--text-muted); margin-bottom:14px;">Scientific Name</p>
+          
+          <p id="modalDesc" style="color:var(--text-secondary); font-size:0.95rem; margin-bottom:18px;">Plant description here...</p>
+
+          <div class="modal-meta-grid">
+            <div class="modal-meta-box">
+              <h5><i class="fa-solid fa-droplet"></i> Watering</h5>
+              <p id="modalWater">Every 7 days</p>
+            </div>
+            <div class="modal-meta-box">
+              <h5><i class="fa-solid fa-sun"></i> Light</h5>
+              <p id="modalLight">Bright Indirect</p>
+            </div>
+            <div class="modal-meta-box">
+              <h5><i class="fa-solid fa-gauge-simple"></i> Care Level</h5>
+              <p id="modalDifficulty">Easy</p>
+            </div>
+            <div class="modal-meta-box">
+              <h5><i class="fa-solid fa-temperature-half"></i> Temperature</h5>
+              <p id="modalTemp">18°C - 30°C</p>
+            </div>
+            <div class="modal-meta-box">
+              <h5><i class="fa-solid fa-water"></i> Humidity</h5>
+              <p id="modalHumidity">60% - 80%</p>
+            </div>
+            <div class="modal-meta-box">
+              <h5><i class="fa-solid fa-paw"></i> Pet Safety</h5>
+              <p id="modalPet">Pet Safe</p>
+            </div>
+          </div>
+
+          <div style="background: rgba(112, 193, 96, 0.15); border-left: 4px solid var(--leaf-green-400); padding: 12px 16px; border-radius: 12px; margin-bottom: 20px;">
+            <strong style="color: var(--emerald-deep); font-size: 0.85rem;"><i class="fa-solid fa-lightbulb"></i> Botanist Pro-Tip:</strong>
+            <p id="modalCareTip" style="font-size: 0.88rem; color: var(--text-secondary); margin-top: 4px;">Wipe dust off leaves monthly...</p>
+          </div>
+
+          <div style="display:flex; gap:12px;">
+            <button class="btn-leaf" id="modalAddGardenBtn" style="flex:1;">
+              <i class="fa-solid fa-plus"></i> Add To My Garden
+            </button>
+            <button class="btn-glass" onclick="document.getElementById('aiAssistantSection').scrollIntoView({behavior:'smooth'}); document.getElementById('plantDetailModal').classList.remove('active');">
+              <i class="fa-solid fa-wand-magic-sparkles" style="color:#ffbe3b"></i> Ask Qwen
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Glassmorphic Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        
+        <div class="footer-brand">
+          <a href="#hero" class="brand-logo">
+            <div class="logo-icon">
+              <i class="fa-solid fa-leaf"></i>
+            </div>
+            <span>PlantCare</span>
+          </a>
+          <p>Empowering garden lovers to track small garden plants, diagnose foliage diseases with real photos, and chat with AI for zero cost.</p>
+          <div class="team-pill">
+            <i class="fa-solid fa-users"></i> Built by 3-Member Team Project
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#explorerSection">Plant Encyclopedia</a></li>
+            <li><a href="#scannerSection">AI Photo Scanner</a></li>
+            <li><a href="#gardenSection">Garden Tracker</a></li>
+            <li><a href="#aiAssistantSection">Qwen AI Assistant</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Plant Categories</h4>
+          <ul class="footer-links">
+            <li><a href="#explorerSection">Indoor Foliage</a></li>
+            <li><a href="#explorerSection">Low Maintenance</a></li>
+            <li><a href="#explorerSection">Culinary Herbs</a></li>
+            <li><a href="#explorerSection">Succulents & Cacti</a></li>
+            <li><a href="#explorerSection">Pet-Safe Houseplants</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Technology Stack</h4>
+          <ul class="footer-links">
+            <li><a href="#!">HTML5 Semantic Architecture</a></li>
+            <li><a href="#!">CSS3 Glassmorphism System</a></li>
+            <li><a href="#!">Vanilla Modern ES6+ JS</a></li>
+            <li><a href="#!">Qwen 2.5 LLM Integration</a></li>
+            <li><a href="#!">Unsplash Real Botany CDN</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2026 PlantCare. Built with ❤️ for garden enthusiasts. Free & Open Source.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/plantData.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
+

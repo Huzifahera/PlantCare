@@ -1,0 +1,1739 @@
+/* ==========================================================================
+   PlantCare - Modern Glassmorphic Botanical Design System
+   ========================================================================== */
+
+:root {
+  /* Light Leaf Green Accent System */
+  --leaf-green-50: #f1f9ef;
+  --leaf-green-100: #def2db;
+  --leaf-green-200: #bee4b8;
+  --leaf-green-300: #93d28b;
+  --leaf-green-400: #70c160;   /* Light Leaf Green Primary */
+  --leaf-green-500: #57ad45;   /* Active / Focus Leaf Green */
+  --leaf-green-600: #428e34;
+  --leaf-green-glow: rgba(112, 193, 96, 0.45);
+  --leaf-green-soft: rgba(112, 193, 96, 0.18);
+
+  /* Vibrant Colorful Palette */
+  --emerald-deep: #134e38;
+  --emerald-dark: #092e21;
+  --sunbeam-gold: #ffbe3b;
+  --coral-blush: #ff7675;
+  --sky-azure: #48dbfb;
+  --lavender-bloom: #a29bfe;
+  --mint-fresh: #55efc4;
+
+  /* Glassmorphism System */
+  --glass-bg-subtle: rgba(255, 255, 255, 0.14);
+  --glass-bg-card: rgba(255, 255, 255, 0.22);
+  --glass-bg-solid: rgba(255, 255, 255, 0.35);
+  --glass-border: rgba(255, 255, 255, 0.45);
+  --glass-border-light: rgba(255, 255, 255, 0.25);
+  --glass-shadow: 0 12px 40px 0 rgba(19, 78, 56, 0.12);
+  --glass-shadow-lg: 0 24px 60px 0 rgba(19, 78, 56, 0.18);
+  --glass-blur: blur(18px);
+
+  /* Typography Colors */
+  --text-main: #133425;
+  --text-secondary: #3b5a4b;
+  --text-muted: #5e7e70;
+  --text-white: #ffffff;
+
+  /* Radii & Transitions */
+  --radius-sm: 10px;
+  --radius-md: 18px;
+  --radius-lg: 26px;
+  --radius-full: 9999px;
+  --transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Base & Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: var(--text-main);
+  background: #ebf5ee;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  line-height: 1.55;
+}
+
+/* ==========================================================================
+   Vibrant Ambient Animated Background (Lush Garden Atmosphere)
+   ========================================================================== */
+.ambient-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+  background: 
+    radial-gradient(circle at 10% 20%, rgba(112, 193, 96, 0.28) 0%, transparent 40%),
+    radial-gradient(circle at 85% 15%, rgba(255, 190, 59, 0.25) 0%, transparent 45%),
+    radial-gradient(circle at 50% 50%, rgba(85, 239, 196, 0.22) 0%, transparent 50%),
+    radial-gradient(circle at 80% 85%, rgba(162, 155, 254, 0.22) 0%, transparent 45%),
+    radial-gradient(circle at 20% 80%, rgba(19, 78, 56, 0.2) 0%, transparent 45%),
+    linear-gradient(135deg, #e4f7e8 0%, #f6faf5 50%, #e2f2e5 100%);
+}
+
+.ambient-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.65;
+  animation: floatBlobs 16s infinite alternate ease-in-out;
+}
+
+.blob-1 {
+  width: 450px;
+  height: 450px;
+  background: linear-gradient(135deg, #70c160, #55efc4);
+  top: -100px;
+  left: -80px;
+  animation-duration: 22s;
+}
+
+.blob-2 {
+  width: 520px;
+  height: 520px;
+  background: linear-gradient(135deg, #ffbe3b, #ff7675);
+  top: 25%;
+  right: -140px;
+  animation-duration: 26s;
+  animation-delay: -5s;
+}
+
+.blob-3 {
+  width: 480px;
+  height: 480px;
+  background: linear-gradient(135deg, #a29bfe, #48dbfb);
+  bottom: -100px;
+  left: 30%;
+  animation-duration: 20s;
+  animation-delay: -10s;
+}
+
+@keyframes floatBlobs {
+  0% { transform: translateY(0px) rotate(0deg) scale(1); }
+  50% { transform: translateY(40px) translateX(30px) rotate(90deg) scale(1.08); }
+  100% { transform: translateY(-30px) translateX(-20px) rotate(180deg) scale(0.95); }
+}
+
+/* ==========================================================================
+   Typography & Common Elements
+   ========================================================================== */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Outfit', sans-serif;
+  color: var(--emerald-deep);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.container {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(112, 193, 96, 0.2);
+  color: var(--emerald-deep);
+  border: 1px solid rgba(112, 193, 96, 0.45);
+  padding: 6px 16px;
+  border-radius: var(--radius-full);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 14px;
+  backdrop-filter: blur(10px);
+}
+
+.section-tag i {
+  color: var(--leaf-green-600);
+}
+
+.section-header {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 50px auto;
+}
+
+.section-header h2 {
+  font-size: 2.5rem;
+  margin-bottom: 14px;
+}
+
+.section-header p {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+}
+
+/* ==========================================================================
+   Buttons (Signature Light Leaf Green Design)
+   ========================================================================== */
+.btn-leaf {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #7ad565 0%, #63bb51 100%);
+  color: #ffffff;
+  padding: 12px 26px;
+  border-radius: var(--radius-full);
+  font-weight: 600;
+  font-size: 0.98rem;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: 0 6px 20px var(--leaf-green-glow), inset 0 1px 1px rgba(255, 255, 255, 0.6);
+  position: relative;
+  overflow: hidden;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+.btn-leaf:hover {
+  background: linear-gradient(135deg, #88e074 0%, #6bc758 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(112, 193, 96, 0.6), inset 0 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+.btn-leaf:active {
+  transform: translateY(1px);
+  box-shadow: 0 4px 12px var(--leaf-green-glow);
+}
+
+.btn-leaf-sm {
+  padding: 8px 18px;
+  font-size: 0.86rem;
+  border-radius: var(--radius-full);
+}
+
+.btn-leaf-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.35);
+  color: var(--emerald-deep);
+  padding: 11px 24px;
+  border-radius: var(--radius-full);
+  font-weight: 600;
+  font-size: 0.98rem;
+  border: 1.5px solid var(--leaf-green-400);
+  backdrop-filter: var(--glass-blur);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-leaf-outline:hover {
+  background: rgba(112, 193, 96, 0.18);
+  border-color: var(--leaf-green-500);
+  transform: translateY(-2px);
+  color: var(--emerald-deep);
+}
+
+.btn-glass {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.3);
+  color: var(--emerald-deep);
+  padding: 10px 20px;
+  border-radius: var(--radius-full);
+  font-weight: 600;
+  border: 1px solid var(--glass-border);
+  backdrop-filter: var(--glass-blur);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-glass:hover {
+  background: rgba(255, 255, 255, 0.55);
+  transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   Glassmorphic Container / Card Base
+   ========================================================================== */
+.glass-card {
+  background: var(--glass-bg-card);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  border-radius: var(--radius-lg);
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition);
+}
+
+.glass-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0) 100%);
+  pointer-events: none;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+.glass-card:hover {
+  border-color: rgba(255, 255, 255, 0.7);
+  box-shadow: var(--glass-shadow-lg);
+}
+
+/* ==========================================================================
+   Navigation Bar (Glassmorphic Floating Header)
+   ========================================================================== */
+.navbar-wrapper {
+  position: sticky;
+  top: 16px;
+  z-index: 100;
+  padding: 0 20px;
+  margin-bottom: 24px;
+}
+
+.navbar {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 28px;
+  background: rgba(255, 255, 255, 0.38);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: var(--radius-full);
+  box-shadow: 0 10px 30px rgba(19, 78, 56, 0.08);
+  transition: var(--transition);
+}
+
+.brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 800;
+  font-size: 1.5rem;
+  color: var(--emerald-deep);
+}
+
+.logo-icon {
+  width: 38px;
+  height: 38px;
+  background: linear-gradient(135deg, #7ad565 0%, #2f855a 100%);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  box-shadow: 0 4px 12px var(--leaf-green-glow);
+  font-size: 1.2rem;
+}
+
+.brand-badge {
+  font-size: 0.68rem;
+  background: rgba(112, 193, 96, 0.25);
+  color: var(--emerald-deep);
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  margin-left: 4px;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  list-style: none;
+}
+
+.nav-link {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  transition: var(--transition);
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nav-link:hover, .nav-link.active {
+  color: var(--emerald-deep);
+}
+
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--leaf-green-400);
+  border-radius: 4px;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.mobile-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--emerald-deep);
+  cursor: pointer;
+}
+
+/* ==========================================================================
+   Hero Section
+   ========================================================================== */
+.hero-section {
+  padding: 40px 0 80px 0;
+  position: relative;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 50px;
+  align-items: center;
+}
+
+.hero-content h1 {
+  font-size: 3.6rem;
+  line-height: 1.15;
+  margin-bottom: 20px;
+  color: var(--emerald-deep);
+}
+
+.hero-content h1 .gradient-text {
+  background: linear-gradient(135deg, #1f6b48 0%, #58b955 60%, #ffbe3b 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-subtitle {
+  font-size: 1.22rem;
+  color: var(--text-secondary);
+  margin-bottom: 32px;
+  max-width: 580px;
+}
+
+.hero-search-box {
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1.5px solid rgba(255, 255, 255, 0.8);
+  border-radius: var(--radius-full);
+  padding: 8px 10px 8px 24px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 10px 30px rgba(19, 78, 56, 0.1);
+  margin-bottom: 20px;
+  transition: var(--transition);
+}
+
+.hero-search-box:focus-within {
+  background: rgba(255, 255, 255, 0.7);
+  border-color: var(--leaf-green-400);
+  box-shadow: 0 12px 35px var(--leaf-green-glow);
+}
+
+.hero-search-box i.search-icon {
+  font-size: 1.25rem;
+  color: var(--leaf-green-500);
+  margin-right: 12px;
+}
+
+.hero-search-box input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 1.05rem;
+  font-family: inherit;
+  color: var(--text-main);
+}
+
+.hero-search-box input::placeholder {
+  color: var(--text-muted);
+}
+
+.hero-quick-chips {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 30px;
+}
+
+.chip-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-right: 4px;
+}
+
+.filter-chip {
+  background: rgba(255, 255, 255, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  padding: 5px 14px;
+  border-radius: var(--radius-full);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--emerald-deep);
+  cursor: pointer;
+  transition: var(--transition);
+  backdrop-filter: blur(10px);
+}
+
+.filter-chip:hover, .filter-chip.active {
+  background: var(--leaf-green-400);
+  color: white;
+  border-color: var(--leaf-green-400);
+  box-shadow: 0 4px 12px var(--leaf-green-glow);
+}
+
+.hero-stats-row {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  padding-top: 15px;
+  border-top: 1px solid rgba(19, 78, 56, 0.12);
+}
+
+.stat-item h4 {
+  font-size: 1.7rem;
+  color: var(--emerald-deep);
+}
+
+.stat-item p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* ==========================================================================
+   Hero Visual Showcase (Interactive Glass Card With Real Plant)
+   ========================================================================== */
+.hero-visual-card {
+  position: relative;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.28);
+  border-radius: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  box-shadow: 0 30px 70px rgba(19, 78, 56, 0.15);
+}
+
+.hero-plant-img-wrapper {
+  position: relative;
+  width: 100%;
+  height: 380px;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.hero-plant-img-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.hero-visual-card:hover .hero-plant-img-wrapper img {
+  transform: scale(1.05);
+}
+
+.glass-floating-pill {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: var(--radius-full);
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--emerald-deep);
+}
+
+.pill-ai-badge {
+  top: 18px;
+  right: 18px;
+  background: rgba(19, 78, 56, 0.85);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.pill-ai-badge i {
+  color: var(--sunbeam-gold);
+  animation: pulseRotate 3s infinite ease-in-out;
+}
+
+@keyframes pulseRotate {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2) rotate(15deg); }
+  100% { transform: scale(1); }
+}
+
+.pill-health {
+  bottom: 20px;
+  left: 20px;
+}
+
+.health-dot {
+  width: 10px;
+  height: 10px;
+  background: #55efc4;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #55efc4;
+}
+
+.hero-plant-meta {
+  margin-top: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.hero-plant-info h3 {
+  font-size: 1.35rem;
+  margin-bottom: 2px;
+}
+
+.hero-plant-info span {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.floating-care-bubble {
+  position: absolute;
+  bottom: -22px;
+  right: 10px;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  border-radius: 20px;
+  padding: 12px 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 12px 30px rgba(19, 78, 56, 0.14);
+}
+
+.bubble-icon {
+  width: 38px;
+  height: 38px;
+  background: var(--leaf-green-soft);
+  color: var(--leaf-green-600);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+
+.bubble-text h5 {
+  font-size: 0.88rem;
+  color: var(--emerald-deep);
+}
+
+.bubble-text p {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   Photo Snap & AI Identifier Section (Laser Scan Interactive Demo)
+   ========================================================================== */
+.scanner-section {
+  padding: 70px 0;
+  position: relative;
+}
+
+.scanner-glass-box {
+  background: rgba(255, 255, 255, 0.28);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1.5px solid rgba(255, 255, 255, 0.65);
+  border-radius: 36px;
+  box-shadow: var(--glass-shadow-lg);
+  padding: 40px;
+}
+
+.scanner-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.scanner-viewport-wrapper {
+  position: relative;
+  background: rgba(0, 0, 0, 0.05);
+  border: 2px dashed rgba(112, 193, 96, 0.5);
+  border-radius: 24px;
+  padding: 12px;
+  overflow: hidden;
+}
+
+.scanner-viewport {
+  position: relative;
+  width: 100%;
+  height: 380px;
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.scanner-viewport img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Animated Laser Scanner Line */
+.scanner-laser {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, #55efc4, #70c160, #ffbe3b, transparent);
+  box-shadow: 0 0 18px 4px rgba(85, 239, 196, 0.85);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.scanner-laser.scanning {
+  opacity: 1;
+  animation: scanLaser 2s infinite ease-in-out;
+}
+
+@keyframes scanLaser {
+  0% { top: 2%; }
+  50% { top: 96%; }
+  100% { top: 2%; }
+}
+
+.scanner-corners {
+  position: absolute;
+  inset: 12px;
+  pointer-events: none;
+}
+
+.corner {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border-color: #70c160;
+  border-style: solid;
+  border-width: 0;
+}
+
+.corner-tl { top: 0; left: 0; border-top-width: 3px; border-left-width: 3px; border-top-left-radius: 6px; }
+.corner-tr { top: 0; right: 0; border-top-width: 3px; border-right-width: 3px; border-top-right-radius: 6px; }
+.corner-bl { bottom: 0; left: 0; border-bottom-width: 3px; border-left-width: 3px; border-bottom-left-radius: 6px; }
+.corner-br { bottom: 0; right: 0; border-bottom-width: 3px; border-right-width: 3px; border-bottom-right-radius: 6px; }
+
+.scanner-sample-selector {
+  margin-top: 16px;
+}
+
+.scanner-sample-selector p {
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 10px;
+}
+
+.sample-thumbs-row {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+}
+
+.sample-thumb-btn {
+  background: rgba(255, 255, 255, 0.4);
+  border: 2px solid transparent;
+  border-radius: 12px;
+  padding: 4px;
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-main);
+  white-space: nowrap;
+}
+
+.sample-thumb-btn img {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.sample-thumb-btn.active, .sample-thumb-btn:hover {
+  border-color: var(--leaf-green-400);
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 4px 12px var(--leaf-green-glow);
+}
+
+.scanner-upload-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+/* Scanner Results Box */
+.scan-result-card {
+  background: rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 24px;
+  padding: 26px;
+  box-shadow: 0 10px 25px rgba(19, 78, 56, 0.06);
+}
+
+.result-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.result-badge-qwen {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, #092e21, #134e38);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+}
+
+.result-badge-qwen i {
+  color: var(--sunbeam-gold);
+}
+
+.result-confidence {
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: var(--leaf-green-600);
+  background: rgba(112, 193, 96, 0.2);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+}
+
+.result-plant-name {
+  font-size: 1.6rem;
+  margin-bottom: 6px;
+  color: var(--emerald-deep);
+}
+
+.result-health-status {
+  display: inline-block;
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 14px;
+  color: #27ae60;
+}
+
+.result-analysis-box {
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 14px;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+  border-left: 4px solid var(--leaf-green-400);
+}
+
+.result-analysis-box h5 {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+  margin-bottom: 4px;
+}
+
+.result-analysis-box p {
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+}
+
+.result-qwen-advice h5 {
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+  color: var(--emerald-deep);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.result-qwen-advice ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.result-qwen-advice li {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.result-qwen-advice li i {
+  color: var(--leaf-green-500);
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+
+.result-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+/* ==========================================================================
+   Plant Explorer & Search Gallery
+   ========================================================================== */
+.explorer-section {
+  padding: 80px 0;
+}
+
+.explorer-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 36px;
+}
+
+.category-tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.tab-btn {
+  background: rgba(255, 255, 255, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  padding: 8px 18px;
+  border-radius: var(--radius-full);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: var(--transition);
+  backdrop-filter: blur(10px);
+}
+
+.tab-btn:hover, .tab-btn.active {
+  background: var(--leaf-green-400);
+  color: white;
+  border-color: var(--leaf-green-400);
+  box-shadow: 0 4px 14px var(--leaf-green-glow);
+}
+
+.gallery-search-input-box {
+  position: relative;
+  width: 280px;
+}
+
+.gallery-search-input-box input {
+  width: 100%;
+  padding: 9px 16px 9px 38px;
+  background: rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: var(--radius-full);
+  outline: none;
+  font-family: inherit;
+  font-size: 0.9rem;
+  backdrop-filter: blur(12px);
+  transition: var(--transition);
+}
+
+.gallery-search-input-box input:focus {
+  background: rgba(255, 255, 255, 0.7);
+  border-color: var(--leaf-green-400);
+  box-shadow: 0 4px 16px var(--leaf-green-glow);
+}
+
+.gallery-search-input-box i {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--leaf-green-600);
+  font-size: 0.9rem;
+}
+
+/* Plant Card Grid */
+.plant-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 30px;
+}
+
+.plant-card {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.plant-card:hover {
+  transform: translateY(-8px);
+}
+
+.plant-card-media {
+  position: relative;
+  width: 100%;
+  height: 230px;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.plant-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.plant-card:hover .plant-card-media img {
+  transform: scale(1.08);
+}
+
+.plant-badge-top {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--emerald-deep);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+.plant-bookmark-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 34px;
+  height: 34px;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.plant-bookmark-btn:hover, .plant-bookmark-btn.saved {
+  color: #ff7675;
+  background: #fff;
+  transform: scale(1.1);
+}
+
+.plant-card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.plant-title-row {
+  margin-bottom: 8px;
+}
+
+.plant-title-row h3 {
+  font-size: 1.25rem;
+  margin-bottom: 2px;
+}
+
+.plant-scientific {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.plant-tags {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.plant-tag-pill {
+  font-size: 0.74rem;
+  font-weight: 600;
+  background: rgba(112, 193, 96, 0.16);
+  color: var(--emerald-deep);
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.plant-meta-specs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: 14px;
+  padding: 10px 12px;
+  margin-bottom: 16px;
+  font-size: 0.78rem;
+}
+
+.spec-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-secondary);
+}
+
+.spec-item i {
+  color: var(--leaf-green-500);
+}
+
+.plant-card-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: auto;
+}
+
+.plant-card-actions .btn-leaf-sm {
+  flex: 1;
+}
+
+/* ==========================================================================
+   My Mini Garden Live Dashboard Preview
+   ========================================================================== */
+.garden-dashboard-section {
+  padding: 80px 0;
+  position: relative;
+}
+
+.garden-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(135deg, rgba(19, 78, 56, 0.85) 0%, rgba(9, 46, 33, 0.95) 100%);
+  color: white;
+  border-radius: 28px;
+  padding: 26px 36px;
+  margin-bottom: 30px;
+  box-shadow: 0 15px 40px rgba(19, 78, 56, 0.25);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.garden-banner-info h3 {
+  color: white;
+  font-size: 1.6rem;
+  margin-bottom: 6px;
+}
+
+.garden-banner-info p {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.96rem;
+}
+
+.garden-streak-badge {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.12);
+  padding: 10px 20px;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.streak-flame {
+  font-size: 1.6rem;
+}
+
+.streak-numbers h4 {
+  color: #ffbe3b;
+  font-size: 1.15rem;
+}
+
+.streak-numbers span {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+}
+
+.garden-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 24px;
+}
+
+.garden-plant-item {
+  display: flex;
+  gap: 16px;
+  padding: 16px;
+  border-radius: 22px;
+}
+
+.garden-plant-thumb {
+  width: 95px;
+  height: 95px;
+  border-radius: 16px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.garden-plant-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.garden-plant-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.garden-plant-details h4 {
+  font-size: 1.1rem;
+  margin-bottom: 2px;
+}
+
+.garden-location {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.water-status-bar {
+  margin-bottom: 10px;
+}
+
+.water-status-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.74rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.water-progress-bg {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.45);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.water-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #70c160, #55efc4);
+  border-radius: var(--radius-full);
+}
+
+.garden-item-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+}
+
+.action-water-btn {
+  background: var(--leaf-green-400);
+  color: white;
+  border: none;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: var(--transition);
+}
+
+.action-water-btn:hover {
+  background: var(--leaf-green-500);
+  transform: scale(1.04);
+}
+
+.action-water-btn.watered {
+  background: rgba(112, 193, 96, 0.25);
+  color: var(--emerald-deep);
+}
+
+/* ==========================================================================
+   Ask Qwen AI Botanist Interactive Assistant
+   ========================================================================== */
+.ai-assistant-section {
+  padding: 80px 0;
+}
+
+.ai-card-shell {
+  background: rgba(255, 255, 255, 0.32);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1.5px solid rgba(255, 255, 255, 0.7);
+  border-radius: 36px;
+  padding: 36px;
+  box-shadow: var(--glass-shadow-lg);
+  max-width: 940px;
+  margin: 0 auto;
+}
+
+.ai-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(19, 78, 56, 0.1);
+  padding-bottom: 20px;
+  margin-bottom: 24px;
+}
+
+.ai-badge-group {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.ai-avatar {
+  width: 52px;
+  height: 52px;
+  background: linear-gradient(135deg, #092e21 0%, #1f6b48 100%);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #55efc4;
+  font-size: 1.5rem;
+  box-shadow: 0 6px 18px rgba(19, 78, 56, 0.2);
+}
+
+.ai-title h3 {
+  font-size: 1.35rem;
+  color: var(--emerald-deep);
+}
+
+.ai-title p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.chat-history {
+  height: 340px;
+  overflow-y: auto;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 20px;
+  scroll-behavior: smooth;
+}
+
+.chat-bubble {
+  max-width: 80%;
+  padding: 14px 18px;
+  border-radius: 20px;
+  font-size: 0.94rem;
+  line-height: 1.5;
+  animation: fadeInBubble 0.3s ease-out;
+}
+
+@keyframes fadeInBubble {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.chat-bubble-bot {
+  align-self: flex-start;
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  color: var(--text-main);
+  border-bottom-left-radius: 4px;
+  box-shadow: 0 4px 16px rgba(19, 78, 56, 0.05);
+}
+
+.chat-bubble-user {
+  align-self: flex-end;
+  background: linear-gradient(135deg, #70c160 0%, #57ad45 100%);
+  color: white;
+  border-bottom-right-radius: 4px;
+  box-shadow: 0 4px 16px var(--leaf-green-glow);
+}
+
+.chat-prompt-suggestions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.prompt-chip {
+  background: rgba(255, 255, 255, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--emerald-deep);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.prompt-chip:hover {
+  background: var(--leaf-green-400);
+  color: white;
+  border-color: var(--leaf-green-400);
+}
+
+.chat-input-bar {
+  display: flex;
+  gap: 10px;
+}
+
+.chat-input-bar input {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1.5px solid rgba(255, 255, 255, 0.8);
+  border-radius: var(--radius-full);
+  padding: 12px 22px;
+  font-size: 0.98rem;
+  font-family: inherit;
+  outline: none;
+  transition: var(--transition);
+}
+
+.chat-input-bar input:focus {
+  background: #fff;
+  border-color: var(--leaf-green-400);
+  box-shadow: 0 6px 20px var(--leaf-green-glow);
+}
+
+/* ==========================================================================
+   Plant Detail Modal (Glassmorphic)
+   ========================================================================== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(9, 46, 33, 0.45);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  z-index: 1000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: modalFadeIn 0.25s ease;
+}
+
+.modal-overlay.active {
+  display: flex;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal-content-glass {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(28px);
+  border: 1.5px solid rgba(255, 255, 255, 0.9);
+  border-radius: 32px;
+  width: 100%;
+  max-width: 820px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.2);
+  position: relative;
+  padding: 32px;
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 38px;
+  height: 38px;
+  background: rgba(0, 0, 0, 0.05);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  color: var(--text-main);
+  transition: var(--transition);
+}
+
+.modal-close-btn:hover {
+  background: rgba(255, 118, 117, 0.2);
+  color: #ff7675;
+}
+
+.modal-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 28px;
+}
+
+.modal-plant-img {
+  width: 100%;
+  height: 360px;
+  border-radius: 20px;
+  object-fit: cover;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.modal-meta-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 18px 0;
+}
+
+.modal-meta-box {
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 14px;
+  padding: 10px 14px;
+}
+
+.modal-meta-box h5 {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.modal-meta-box p {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--emerald-deep);
+}
+
+/* ==========================================================================
+   Footer (Glassmorphic & Botanical)
+   ========================================================================== */
+.site-footer {
+  margin-top: 100px;
+  padding: 60px 0 30px 0;
+  position: relative;
+  border-top: 1px solid rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(16px);
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 50px;
+}
+
+.footer-brand p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  margin: 14px 0 20px 0;
+  max-width: 320px;
+}
+
+.team-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(112, 193, 96, 0.2);
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--emerald-deep);
+}
+
+.footer-col h4 {
+  font-size: 1.1rem;
+  margin-bottom: 18px;
+  color: var(--emerald-deep);
+}
+
+.footer-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-links a {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  transition: var(--transition);
+}
+
+.footer-links a:hover {
+  color: var(--leaf-green-600);
+  transform: translateX(4px);
+  display: inline-block;
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 24px;
+  border-top: 1px solid rgba(19, 78, 56, 0.08);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   Toast Notification
+   ========================================================================== */
+.toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.toast {
+  background: rgba(19, 78, 56, 0.9);
+  color: white;
+  backdrop-filter: blur(14px);
+  padding: 12px 20px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  animation: toastSlideIn 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+@keyframes toastSlideIn {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+/* ==========================================================================
+   Responsive Breakpoints
+   ========================================================================== */
+@media (max-width: 992px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .scanner-grid {
+    grid-template-columns: 1fr;
+  }
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .modal-grid {
+    grid-template-columns: 1fr;
+  }
+  .modal-plant-img {
+    height: 240px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-content h1 {
+    font-size: 2.6rem;
+  }
+  .nav-links {
+    display: none;
+  }
+  .nav-links.open {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 70px;
+    left: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+  }
+  .mobile-toggle {
+    display: block;
+  }
+  .garden-banner {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+  }
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
