@@ -718,11 +718,57 @@ Would you like specific advice on yellow leaves, propagation, pests, or watering
   }
 
   // ----------------------------------------------------
-  // Initial Boot
+  // Initial Boot (Local / Static Data)
   // ----------------------------------------------------
   renderPlantGallery();
-  renderMyGarden();
   renderSampleThumbnails();
   applyScanData(SCAN_SAMPLES[0]);
+
+  // ----------------------------------------------------
+  // Stage 5: Backend Integration Bootstrap
+  // ----------------------------------------------------
+
+  // Initialize auth modal events (login / register / logout)
+  PlantCareAuth.initAuthEvents(showToast);
+
+  // Initialize profile modal events
+  PlantCareProfile.initProfileEvents(showToast);
+
+  // Called whenever the plants list changes (create / edit / delete)
+  function onPlantsUpdated(plants) {
+    PlantCareReminders.populatePlantSelects(plants);
+  }
+
+  // Initialize plant form modal events (add / edit / delete / water)
+  PlantCarePlants.initPlantEvents(showToast, onPlantsUpdated);
+
+  // Initialize reminder panel events (create / complete / delete / filter)
+  PlantCareReminders.initReminderEvents(showToast);
+
+  // Load backend garden + reminders when already authenticated on page load
+  async function loadBackendData() {
+    if (PlantCareAPI.isAuthenticated()) {
+      try {
+        const plants = await PlantCarePlants.fetchPlants();
+        PlantCarePlants.renderGardenPlants();
+        PlantCareReminders.populatePlantSelects(plants);
+        await PlantCareReminders.refreshReminders();
+      } catch (err) {
+        console.error('PlantCare: failed to load backend data', err);
+      }
+    } else {
+      // Show "sign-in to manage your garden" prompt in the garden grid
+      PlantCarePlants.renderGardenPlants();
+    }
+  }
+
+  // Run immediately on page load
+  loadBackendData();
+
+  // Re-sync whenever the user logs in or logs out
+  window.addEventListener('plantcare:auth-changed', async () => {
+    PlantCareAuth.updateNavbarAuthUI();
+    await loadBackendData();
+  });
 });
 
