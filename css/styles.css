@@ -1737,3 +1737,147 @@ a {
   }
 }
 
+
+/* ==========================================================================
+   Stage 5: Backend Integration Forms, Modals & Reminders Panel
+   ========================================================================== */
+.pc-modal-sm {
+  max-width: 480px;
+}
+
+.pc-auth-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.pc-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.pc-form-group label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--emerald-deep);
+}
+
+.pc-input {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(19, 78, 56, 0.2);
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--text-main);
+  font-family: inherit;
+  font-size: 0.92rem;
+  outline: none;
+  transition: var(--transition);
+}
+
+.pc-input:focus {
+  border-color: var(--leaf-green-500);
+  box-shadow: 0 0 0 3px var(--leaf-green-soft);
+}
+
+.pc-input-sm {
+  width: auto;
+  padding: 7px 12px;
+  font-size: 0.85rem;
+}
+
+.pc-error-msg {
+  color: #c0392b;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  min-height: 18px;
+}
+
+.pc-success-msg {
+  color: var(--leaf-green-600);
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.pc-avatar-preview {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--leaf-green-400);
+}
+
+.pc-reminders-panel {
+  margin-top: 30px;
+  padding: 26px;
+}
+
+.pc-reminders-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+
+.pc-reminders-filters {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.pc-reminder-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.pc-reminders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.pc-reminder-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 14px 16px;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+}
+
+.pc-reminder-item.completed {
+  opacity: 0.72;
+}
+
+.pc-reminder-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pc-status-pill,
+.pc-type-pill {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 2px 10px;
+  border-radius: var(--radius-full);
+  text-transform: capitalize;
+}
+
+.pc-type-pill {
+  background: rgba(162, 155, 254, 0.2);
+  color: #4834d4;
+}

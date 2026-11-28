@@ -45,9 +45,22 @@
       </ul>
 
       <div class="nav-actions">
-        <a href="#scannerSection" class="btn-leaf btn-leaf-sm">
-          <i class="fa-solid fa-camera"></i> Snap Plant
-        </a>
+        <div id="navGuestActions" style="display:inline-flex; gap:8px; align-items:center;">
+          <button type="button" class="btn-glass btn-leaf-sm" id="openLoginModalBtn">
+            <i class="fa-solid fa-right-to-bracket"></i> Login
+          </button>
+          <button type="button" class="btn-leaf btn-leaf-sm" id="openRegisterModalBtn">
+            <i class="fa-solid fa-user-plus"></i> Register
+          </button>
+        </div>
+        <div id="navUserActions" style="display:none; gap:8px; align-items:center;">
+          <button type="button" class="btn-glass btn-leaf-sm" id="openProfileModalBtn">
+            <i class="fa-solid fa-user"></i> <span id="navUsernameLabel">Account</span>
+          </button>
+          <button type="button" class="btn-glass btn-leaf-sm" id="logoutBtn" title="Log out">
+            <i class="fa-solid fa-right-from-bracket"></i> Logout
+          </button>
+        </div>
         <button class="mobile-toggle" id="mobileMenuToggle" aria-label="Toggle Navigation">
           <i class="fa-solid fa-bars"></i>
         </button>
@@ -298,11 +311,16 @@
             <p>Track hydration cycles, growth notes, and log daily care to keep your plant companions flourishing.</p>
           </div>
 
-          <div class="garden-streak-badge">
-            <div class="streak-flame">🔥</div>
-            <div class="streak-numbers">
-              <h4 id="currentStreakCount">14-Day Streak</h4>
-              <span>Green Thumb Master</span>
+          <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+            <button type="button" class="btn-leaf btn-leaf-sm" id="openAddPlantModalBtn">
+              <i class="fa-solid fa-plus"></i> Add Plant
+            </button>
+            <div class="garden-streak-badge">
+              <div class="streak-flame">🔥</div>
+              <div class="streak-numbers">
+                <h4 id="currentStreakCount">14-Day Streak</h4>
+                <span>Green Thumb Master</span>
+              </div>
             </div>
           </div>
         </div>
@@ -310,6 +328,47 @@
         <!-- Garden Cards Grid -->
         <div class="garden-grid" id="gardenGrid">
           <!-- Populated by JS -->
+        </div>
+
+        <!-- Plant Care Reminders Panel -->
+        <div class="glass-card pc-reminders-panel" id="remindersPanel" style="display:none;">
+          <div class="pc-reminders-header">
+            <div>
+              <h3><i class="fa-solid fa-bell" style="color:var(--leaf-green-500);"></i> Plant Care Reminders</h3>
+              <p style="font-size:0.88rem; color:var(--text-secondary);">Schedule and track watering, fertilizing, and care tasks for your plants.</p>
+            </div>
+            <div class="pc-reminders-filters">
+              <select id="reminderFilterPlant" class="pc-input pc-input-sm" aria-label="Filter reminders by plant">
+                <option value="">All Plants</option>
+              </select>
+              <select id="reminderFilterStatus" class="pc-input pc-input-sm" aria-label="Filter reminders by status">
+                <option value="">All Statuses</option>
+                <option value="false">Pending</option>
+                <option value="true">Completed</option>
+              </select>
+            </div>
+          </div>
+
+          <form id="reminderForm" class="pc-reminder-form">
+            <select id="reminderPlantSelect" class="pc-input" required aria-label="Select plant"></select>
+            <input type="text" id="reminderTitleInput" class="pc-input" placeholder="Reminder title (e.g. Water Monstera)" required>
+            <select id="reminderTypeSelect" class="pc-input" aria-label="Reminder type">
+              <option value="watering">Watering</option>
+              <option value="fertilizing">Fertilizing</option>
+              <option value="pruning">Pruning</option>
+              <option value="repotting">Repotting</option>
+              <option value="pest_control">Pest Control</option>
+              <option value="other">Other</option>
+            </select>
+            <input type="datetime-local" id="reminderDateInput" class="pc-input" required aria-label="Reminder date and time">
+            <input type="text" id="reminderDescInput" class="pc-input" placeholder="Notes (optional)">
+            <button type="submit" class="btn-leaf btn-leaf-sm">
+              <i class="fa-solid fa-plus"></i> Add Reminder
+            </button>
+          </form>
+          <div id="reminderErrorMsg" class="pc-error-msg"></div>
+
+          <div id="remindersList" class="pc-reminders-list"></div>
         </div>
 
       </div>
@@ -544,8 +603,145 @@
     </div>
   </footer>
 
+  <!-- Auth Modal (Login / Register) -->
+  <div class="modal-overlay" id="authModal">
+    <div class="modal-content-glass pc-modal-sm">
+      <button class="modal-close-btn" id="authModalCloseBtn" aria-label="Close auth modal">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <div class="pc-auth-tabs">
+        <button type="button" class="tab-btn active" id="authTabLogin">Login</button>
+        <button type="button" class="tab-btn" id="authTabRegister">Register</button>
+      </div>
+      <div id="authErrorMsg" class="pc-error-msg"></div>
+      <div id="authSuccessMsg" class="pc-success-msg"></div>
+
+      <form id="loginForm">
+        <div class="pc-form-group">
+          <label for="loginUsername">Username</label>
+          <input type="text" id="loginUsername" class="pc-input" required autocomplete="username">
+        </div>
+        <div class="pc-form-group">
+          <label for="loginPassword">Password</label>
+          <input type="password" id="loginPassword" class="pc-input" required autocomplete="current-password">
+        </div>
+        <button type="submit" class="btn-leaf" style="width:100%; justify-content:center;">
+          <i class="fa-solid fa-right-to-bracket"></i> Sign In
+        </button>
+      </form>
+
+      <form id="registerForm" style="display:none;">
+        <div class="pc-form-group">
+          <label for="regUsername">Username</label>
+          <input type="text" id="regUsername" class="pc-input" required autocomplete="username">
+        </div>
+        <div class="pc-form-group">
+          <label for="regEmail">Email</label>
+          <input type="email" id="regEmail" class="pc-input" required autocomplete="email">
+        </div>
+        <div class="pc-form-group">
+          <label for="regPassword">Password</label>
+          <input type="password" id="regPassword" class="pc-input" required autocomplete="new-password">
+        </div>
+        <button type="submit" class="btn-leaf" style="width:100%; justify-content:center;">
+          <i class="fa-solid fa-user-plus"></i> Create Account
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- User Profile Modal -->
+  <div class="modal-overlay" id="profileModal">
+    <div class="modal-content-glass pc-modal-sm">
+      <button class="modal-close-btn" id="profileModalCloseBtn" aria-label="Close profile modal">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <h3 style="margin-bottom:14px;"><i class="fa-solid fa-user"></i> My Profile</h3>
+      <div style="display:flex; align-items:center; gap:14px; margin-bottom:16px;">
+        <img id="profileAvatarPreview" src="" alt="Profile avatar" class="pc-avatar-preview">
+        <div>
+          <strong id="profileUsernameDisplay" style="display:block; font-size:1.05rem;"></strong>
+          <span id="profileEmailDisplay" style="font-size:0.85rem; color:var(--text-muted);"></span>
+        </div>
+      </div>
+      <div id="profileErrorMsg" class="pc-error-msg"></div>
+      <form id="profileForm">
+        <div class="pc-form-group">
+          <label for="profileFullName">Full Name</label>
+          <input type="text" id="profileFullName" class="pc-input">
+        </div>
+        <div class="pc-form-group">
+          <label for="profilePhone">Phone Number</label>
+          <input type="text" id="profilePhone" class="pc-input">
+        </div>
+        <div class="pc-form-group">
+          <label for="profileLocation">Location</label>
+          <input type="text" id="profileLocation" class="pc-input">
+        </div>
+        <div class="pc-form-group">
+          <label for="profileImageInput">Profile Image</label>
+          <input type="file" id="profileImageInput" accept="image/*" class="pc-input">
+        </div>
+        <button type="submit" class="btn-leaf" style="width:100%; justify-content:center;">
+          <i class="fa-solid fa-floppy-disk"></i> Save Profile
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Add / Edit Plant Modal -->
+  <div class="modal-overlay" id="plantFormModal">
+    <div class="modal-content-glass pc-modal-sm">
+      <button class="modal-close-btn" id="plantFormCloseBtn" aria-label="Close plant modal">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <h3 id="plantFormModalTitle" style="margin-bottom:14px;">Add New Plant</h3>
+      <div id="plantFormErrorMsg" class="pc-error-msg"></div>
+      <form id="plantForm">
+        <div class="pc-form-group">
+          <label for="plantNameInput">Plant Name *</label>
+          <input type="text" id="plantNameInput" class="pc-input" required>
+        </div>
+        <div class="pc-form-group">
+          <label for="plantScientificInput">Scientific Name</label>
+          <input type="text" id="plantScientificInput" class="pc-input">
+        </div>
+        <div class="pc-form-group">
+          <label for="plantTypeInput">Plant Type</label>
+          <input type="text" id="plantTypeInput" class="pc-input" placeholder="e.g. Indoor, Succulent, Herb">
+        </div>
+        <div class="pc-form-group">
+          <label for="plantLocationInput">Location</label>
+          <input type="text" id="plantLocationInput" class="pc-input" placeholder="e.g. Balcony, Living Room">
+        </div>
+        <div class="pc-form-group">
+          <label for="plantHealthStatusInput">Health Status</label>
+          <select id="plantHealthStatusInput" class="pc-input">
+            <option value="healthy">Healthy</option>
+            <option value="moderate">Moderate</option>
+            <option value="unhealthy">Unhealthy</option>
+            <option value="critical">Critical</option>
+            <option value="unknown">Unknown</option>
+          </select>
+        </div>
+        <div class="pc-form-group">
+          <label for="plantImageInput">Plant Image</label>
+          <input type="file" id="plantImageInput" accept="image/*" class="pc-input">
+        </div>
+        <button type="submit" class="btn-leaf" style="width:100%; justify-content:center;">
+          <i class="fa-solid fa-seedling"></i> Save Plant
+        </button>
+      </form>
+    </div>
+  </div>
+
   <!-- Scripts -->
   <script src="js/plantData.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/profile.js"></script>
+  <script src="js/plants.js"></script>
+  <script src="js/reminders.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>
