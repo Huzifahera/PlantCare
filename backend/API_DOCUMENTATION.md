@@ -145,9 +145,32 @@ Authorization: Bearer <access_token>
 
 | Endpoint | Method | Auth Required | Description |
 | :--- | :--- | :--- | :--- |
+| `/api/diagnosis/analyze/` | `POST` | No (`AllowAny`, rate limited) | **Hugging Face Vision AI**: Upload photo to identify plant species, symptoms, health score, and care advice |
 | `/api/diagnosis/` | `GET` | Yes | List diagnosis history (optional `?plant={id}`) |
 | `/api/diagnosis/` | `POST` | Yes | Create diagnosis record (`original_image`, optional `segmented_image`) |
 | `/api/diagnosis/{id}/` | `GET` | Yes | Retrieve a specific diagnosis record |
+
+### Example: Live AI Vision Analysis (`POST /api/diagnosis/analyze/`)
+**Request (`multipart/form-data`):**
+- `image`: `<image file (JPEG, PNG, WEBP, max 10MB)>`
+
+**Response (`200 OK`):**
+```json
+{
+  "plant_name": "Jackfruit (Artocarpus heterophyllus)",
+  "confidence": "High",
+  "health_status": "Healthy / Vigorous",
+  "health_score": 90,
+  "diagnosis": "Visual evaluation shows healthy leathery foliage with no critical fungal pathogens.",
+  "symptoms": "Minor dust accumulation on upper surface, no chlorosis or necrosis.",
+  "possible_causes": "Normal tropical indoor / outdoor environment.",
+  "qwen_advice": [
+    "Ensure bright, direct sunlight for at least 6 hours daily.",
+    "Allow top 2-3 inches of well-draining soil to dry between waterings."
+  ],
+  "uncertainty_note": "Visual analysis via photograph cannot detect root-bound status, microbial soil pathogens, or sub-surface insect larvae. Treat this as an observational screening."
+}
+```
 
 ### Example: Create Diagnosis (`POST /api/diagnosis/`)
 **Request (`multipart/form-data`):**
@@ -295,9 +318,31 @@ Authorization: Bearer <access_token>
 
 | Endpoint | Method | Auth Required | Description |
 | :--- | :--- | :--- | :--- |
+| `/api/chatbot/ask/` | `POST` | No (`AllowAny`, rate limited) | **Hugging Face AI Botanist**: Ask gardening questions to Qwen2.5-72B-Instruct. Auto-persists to history if JWT provided |
 | `/api/chatbot/` | `GET` | Yes | List authenticated user's chat history (optional `?plant={id}`) |
 | `/api/chatbot/` | `POST` | Yes | Save a `user` or `bot` message (optional `plant`) |
 | `/api/chatbot/{id}/` | `GET` | Yes | Retrieve a specific chat message owned by user |
+
+### Example: Ask AI Botanist (`POST /api/chatbot/ask/`)
+**Request (`application/json`):**
+```json
+{
+  "message": "Why are my Monstera leaves turning yellow with brown tips?",
+  "plant_id": 1,
+  "history": [
+    {"role": "user", "content": "How often should I water Monstera?"},
+    {"role": "assistant", "content": "Water when the top 2-3 inches of soil feel dry."}
+  ]
+}
+```
+**Response (`200 OK`):**
+```json
+{
+  "reply": "Yellowing leaves with brown tips in a Monstera usually indicate overwatering or poor drainage causing root stress...",
+  "plant_id": 1,
+  "model": "Qwen/Qwen2.5-72B-Instruct"
+}
+```
 
 ### Example: Save Message (`POST /api/chatbot/`)
 **Request (`application/json`):**

@@ -178,6 +178,19 @@ window.PlantCareAuth = (() => {
     updateNavbarAuthUI();
   }
 
+  function initAuth(options = {}) {
+    const onToast = typeof options === 'function' ? options : options.onToast;
+    const onAuthChange = typeof options === 'object' ? options.onAuthChange : null;
+
+    initAuthEvents(onToast);
+
+    if (typeof onAuthChange === 'function') {
+      window.addEventListener('plantcare:auth-changed', () => {
+        onAuthChange();
+      });
+    }
+  }
+
   return {
     register,
     login,
@@ -186,5 +199,6 @@ window.PlantCareAuth = (() => {
     closeAuthModal,
     updateNavbarAuthUI,
     initAuthEvents,
+    initAuth,
   };
 })();

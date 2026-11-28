@@ -127,3 +127,63 @@ class ChatHistoryAPITests(APITestCase):
             ).status_code,
             status.HTTP_404_NOT_FOUND,
         )
+
+
+from unittest.mock import MagicMock, patch
+from django.test import override_settings
+
+
+class AskBotanistTests(APITestCase):
+    """Tests for live Hugging Face AI Botanist chat endpoint."""
+
+    url = '/api/chatbot/ask/'
+
+    @override_settings(
+        HF_ROUTER_URL='https://router.huggingface.co/v1/chat/completions',
+        HF_TOKEN='test-hf-token',
+        HF_CHAT_MODEL='Qwen/Qwen2.5-72B-Instruct',
+    )
+    @patch('config.hf_client.requests.post')
+    def test_ask_botanist_success_and_persists_when_authenticated(self, mock_post):
+        owner = User.objects.create_user(
+            username='botanist_user',
+            email='botanist@example.com',
+            password='StrongPassword!2026',
+        )
+        self.client.force_authenticate(user=owner)
+
+        mock_resp = MagicMock()
+        mock_resp.status_code = 200
+        mock_resp.raise_for_status.return_value = None
+        mock_resp.json.return_value = {
+            'choices': [
+                {
+                    'message': {
+                        'content': 'Yellow lower leaves often point to overwatering. Check the top 2 inches of soil.'
+                    }
+                }
+            ]
+        }
+        mock_post.return_value = mock_resp
+
+        resp = self.client.post(
+            self.url,
+            {'message': 'Why are my pothos leaves yellowing?'},
+            format='json',
+        )
+        self.assertEqual(resp.status_code, status.HTTP_200_OK)
+        self.assertIn('overwatering', resp.data['reply'])
+        self.assertEqual(ChatHistory.objects.filter(user=owner).count(), 2)
+
+    def test_ask_botanist_rejects_blank_message(self):
+        resp = self.client.post(self.url, {'message': '   '}, format='json')
+        self.assertEqual(resp.status_code, status.HTTP_400_BAD_REQUEST)
+
+    @override_settings(
+        HF_ROUTER_URL='https://router.huggingface.co/v1/chat/completions',
+        HF_TOKEN='',
+    )
+    def test_ask_botanist_without_token_returns_503(self):
+        resp = self.client.post(self.url, {'message': 'How to water basil?'}, format='json')
+        self.assertEqual(resp.status_code, status.HTTP_503_SERVICE_UNAVAILABLE)
+        self.assertIn('HF_TOKEN', resp.data['detail'])

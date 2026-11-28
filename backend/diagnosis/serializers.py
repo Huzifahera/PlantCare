@@ -54,3 +54,24 @@ class DiagnosisSerializer(serializers.ModelSerializer):
                 'Affected area percentage must be between 0 and 100.'
             )
         return value
+
+
+MAX_IMAGE_SIZE_BYTES = 10 * 1024 * 1024  # 10 MB
+ALLOWED_IMAGE_CONTENT_TYPES = {"image/jpeg", "image/png", "image/webp", "image/gif"}
+
+
+class AnalyzeImageSerializer(serializers.Serializer):
+    """Validates uploaded plant photo and optional garden plant reference."""
+
+    image = serializers.ImageField(required=True)
+    plant_id = serializers.IntegerField(required=False, allow_null=True)
+
+    def validate_image(self, value):
+        if value.size > MAX_IMAGE_SIZE_BYTES:
+            raise serializers.ValidationError("Image file size must be 10 MB or smaller.")
+        content_type = getattr(value, "content_type", None)
+        if content_type and content_type.lower() not in ALLOWED_IMAGE_CONTENT_TYPES:
+            raise serializers.ValidationError(
+                "Unsupported image format. Please upload a JPEG, PNG, WEBP, or GIF image."
+            )
+        return value

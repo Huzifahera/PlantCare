@@ -56,3 +56,21 @@ class ChatHistorySerializer(serializers.ModelSerializer):
             )
         validated_data['user'] = request.user
         return super().create(validated_data)
+
+
+class AskBotanistSerializer(serializers.Serializer):
+    """Validates a live AI Botanist question with optional conversation history and plant ID."""
+
+    message = serializers.CharField(max_length=2000)
+    plant_id = serializers.IntegerField(required=False, allow_null=True)
+    history = serializers.ListField(
+        child=serializers.DictField(),
+        required=False,
+        default=list,
+    )
+
+    def validate_message(self, value):
+        cleaned = value.strip()
+        if not cleaned:
+            raise serializers.ValidationError('Message cannot be empty.')
+        return cleaned

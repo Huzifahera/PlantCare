@@ -10,22 +10,26 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.1/ref/settings/
 """
 
+import os
 from pathlib import Path
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+load_dotenv(BASE_DIR / '.env')
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-e4f4*sx(7w^t9mehqe-hfya&w!v2bfsvhfs_zh*0(ag4p7^%0-'
+SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-e4f4*sx(7w^t9mehqe-hfya&w!v2bfsvhfs_zh*0(ag4p7^%0-')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG', 'True').lower() in ('true', '1', 'yes')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'testserver', '[::1]', '*']
 
 
 # Application definition
@@ -133,6 +137,27 @@ STATIC_URL = 'static/'
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
+# Vision & Chat AI Configuration (Hugging Face Inference Providers)
+HF_ROUTER_URL = os.getenv(
+    'HF_ROUTER_URL',
+    os.getenv('VISION_API_URL', 'https://router.huggingface.co/v1/chat/completions'),
+)
+HF_TOKEN = os.getenv('HF_TOKEN', os.getenv('VISION_API_KEY', ''))
+# Verified active vision model on Hugging Face router (supports image+text input)
+HF_VISION_MODEL = os.getenv(
+    'HF_VISION_MODEL',
+    os.getenv('VISION_MODEL', 'Qwen/Qwen3-VL-8B-Instruct'),
+)
+HF_CHAT_MODEL = os.getenv(
+    'HF_CHAT_MODEL',
+    'Qwen/Qwen2.5-72B-Instruct',
+)
+
+# Backward-compatible aliases
+VISION_API_URL = HF_ROUTER_URL
+VISION_API_KEY = HF_TOKEN
+VISION_MODEL = HF_VISION_MODEL
+
 
 # Email
 # https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration
@@ -149,5 +174,11 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
     ],
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.ScopedRateThrottle',
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'ai_inference': '20/minute',
+    },
 }
 CORS_ALLOW_ALL_ORIGINS = True
